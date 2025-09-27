@@ -1,0 +1,341 @@
+import 'package:coba2/LoginPage.dart';
+import 'package:coba2/screen/detail_page.dart';
+import 'package:coba2/screen/game_store.dart';
+import 'package:flutter/material.dart';
+
+class HomePage extends StatelessWidget {
+  final String username;
+  HomePage({super.key, required this.username});
+
+  // Daftar data game dummy (tetap sama)
+  final List<GameStore> gameList = [
+    GameStore(
+      name: 'Stray',
+      releaseDate: '19 Jul, 2022',
+      tags: ['Cats', 'Adventure', 'Cyberpunk', 'Atmospheric'],
+      price: 'Rp 149.999',
+      about:
+          'Stray is a third-person cat adventure game set amidst the detailed, neon-lit alleys of a decaying cybercity and the murky environments of its seedy underbelly. Roam surroundings high and low, defend against unforeseen threats and solve the mysteries of this unwelcome place inhabited by curious droids and dangerous creatures.',
+      imageUrls: [
+        'https://cdn.akamai.steamstatic.com/steam/apps/1332010/header.jpg',
+        'https://cdn.akamai.steamstatic.com/steam/apps/1332010/ss_88e209a90c2039fa76bca6fa08c641365be38d50.jpg',
+        'https://cdn.akamai.steamstatic.com/steam/apps/1332010/ss_2221af260c64362fdc835a9dca65f6f1d1192b25.jpg',
+      ],
+      reviewAverage: '97%',
+      reviewCount: '73312',
+      linkStore: 'https://store.steampowered.com/app/1332010/Stray/',
+    ),
+    GameStore(
+      name: 'Goat Simulator',
+      releaseDate: '2 Apr, 2014',
+      tags: ['Simulation', 'Funny', 'Comedy', 'Open World'],
+      price: 'Rp 69.999',
+      about:
+          'Goat Simulator is the latest in goat simulation technology, bringing next-gen goat simulation to YOU. You no longer have to fantasize about being a goat, your dreams have finally come true! WASD to write history.',
+      imageUrls: [
+        'https://cdn.akamai.steamstatic.com/steam/apps/265930/header.jpg',
+        'https://cdn.akamai.steamstatic.com/steam/apps/265930/ss_0f0e9008ba21b5eed106147cdc355d3c7bad683a.jpg',
+        'https://cdn.akamai.steamstatic.com/steam/apps/265930/ss_25b9da1037082d6a7c3c12e2f3a7707c5c2e721e.jpg',
+      ],
+      reviewAverage: '89%',
+      reviewCount: '45522',
+      linkStore: 'https://store.steampowered.com/app/265930/Goat_Simulator/',
+    ),
+    GameStore(
+      name: 'ACE COMBAT™ 7: SKIES UNKNOWN',
+      releaseDate: '1 Feb, 2019',
+      tags: ['Flight', 'Military', 'Jet', 'Shooter'],
+      price: 'Rp 550.000',
+      about:
+          'Become an ace pilot and soar through photorealistic skies with full 360 degree movement; down enemy aircraft and experience the thrill of engaging in realistic sorties! Aerial combat has never looked or felt better!',
+      imageUrls: [
+        'https://cdn.akamai.steamstatic.com/steam/apps/502500/header.jpg',
+        'https://cdn.akamai.steamstatic.com/steam/apps/502500/ss_2240172f5e842938e1c32adc6ad1451d3ddad747.jpg',
+        'https://cdn.akamai.steamstatic.com/steam/apps/502500/ss_8c540a07244c80211c0218e272abce97073332d7.jpg',
+      ],
+      reviewAverage: '86%',
+      reviewCount: '22468',
+      linkStore:
+          'https://store.steampowered.com/app/502500/ACE_COMBAT_7_SKIES_UNKNOWN/',
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // 1. Ubah warna latar belakang utama menjadi putih
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text(
+          "Game Store",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        // 2. Ubah warna AppBar dan pastikan ikon & teks terlihat
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black, // Membuat ikon dan teks menjadi hitam
+        elevation: 0.5, // Beri sedikit bayangan agar AppBar terlihat
+        actions: [
+          IconButton(
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Melihat profil untuk $username')),
+              );
+            },
+            icon: Icon(Icons.person_outline),
+          ),
+          IconButton(
+            onPressed: () => _logout(context),
+            icon: Icon(Icons.logout),
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 8.0,
+              ),
+              child: Text(
+                'Selamat Datang, $username!',
+                style: TextStyle(
+                  // 3. Ubah warna teks sambutan menjadi hitam
+                  color: Colors.black,
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            _buildSectionHeader("Game Unggulan"),
+            _buildFeaturedGameList(context),
+            _buildSectionHeader("Daftar Game"),
+            _buildGameGrid(context),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSectionHeader(String title) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 12.0),
+      child: Text(
+        title,
+        style: TextStyle(
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+          // 4. Ubah warna header section menjadi hitam
+          color: Colors.black,
+        ),
+      ),
+    );
+  }
+
+  // Tampilan kartu unggulan tidak perlu diubah karena teks putih
+  // sudah kontras dengan gradien hitam di bawah gambar.
+  Widget _buildFeaturedGameList(BuildContext context) {
+    return Container(
+      height: 220,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        itemCount: gameList.length,
+        itemBuilder: (context, index) {
+          final game = gameList[index];
+          return _buildFeaturedGameCard(context, game);
+        },
+      ),
+    );
+  }
+
+  Widget _buildFeaturedGameCard(BuildContext context, GameStore game) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => DetailPage(game: game)),
+        );
+      },
+      child: Container(
+        width: 300,
+        margin: EdgeInsets.only(right: 16.0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(15.0),
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              Hero(
+                tag: 'featured_${game.name}',
+                child: Image.network(game.imageUrls[0], fit: BoxFit.cover),
+              ),
+              DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.center,
+                    colors: [Colors.black.withOpacity(0.8), Colors.transparent],
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 20,
+                left: 20,
+                right: 20,
+                child: Text(
+                  game.name,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    shadows: [Shadow(blurRadius: 10.0, color: Colors.black)],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildGameGrid(BuildContext context) {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      padding: const EdgeInsets.all(16.0),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 16.0,
+        mainAxisSpacing: 16.0,
+        childAspectRatio: 0.65,
+      ),
+      itemCount: gameList.length,
+      itemBuilder: (context, index) {
+        final game = gameList[index];
+        return _buildGameCard(context, game);
+      },
+    );
+  }
+
+  // 5. Modifikasi kartu game untuk tema putih
+  Widget _buildGameCard(BuildContext context, GameStore game) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => DetailPage(game: game)),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          // Ganti warna latar kartu menjadi putih
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15.0),
+          boxShadow: [
+            BoxShadow(
+              // Buat bayangan lebih halus untuk latar putih
+              color: Colors.grey.withOpacity(0.3),
+              spreadRadius: 1,
+              blurRadius: 5,
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(15.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 3,
+                child: Hero(
+                  tag: game.name,
+                  child: Image.network(
+                    game.imageUrls[0],
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    errorBuilder: (context, error, stackTrace) => Center(
+                      child: Icon(
+                        Icons.image_not_supported,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        game.name,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                          // Ganti warna teks nama game menjadi hitam
+                          color: Colors.black,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Wrap(
+                        spacing: 4.0,
+                        runSpacing: 4.0,
+                        children: game.tags
+                            .take(2)
+                            .map(
+                              (tag) => Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 6.0,
+                                  vertical: 2.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  // Ganti warna latar tag
+                                  color: Colors.grey[200],
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                                child: Text(
+                                  tag,
+                                  style: TextStyle(
+                                    // Ganti warna teks tag
+                                    color: Colors.black87,
+                                    fontSize: 10,
+                                  ),
+                                ),
+                              ),
+                            )
+                            .toList(),
+                      ),
+                      Text(
+                        game.price,
+                        style: TextStyle(
+                          // Ganti warna harga agar lebih kontras
+                          color: Colors.green.shade700,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _logout(BuildContext context) {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => LoginPage()),
+      (route) => false,
+    );
+  }
+}
