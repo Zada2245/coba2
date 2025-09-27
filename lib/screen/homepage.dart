@@ -58,6 +58,54 @@ class HomePage extends StatelessWidget {
       linkStore:
           'https://store.steampowered.com/app/502500/ACE_COMBAT_7_SKIES_UNKNOWN/',
     ),
+    GameStore(
+      name: 'Dota 2',
+      releaseDate: '10 Jul, 2013',
+      tags: ['Free to Play', 'MOBA', 'Strategy', 'Multiplayer'],
+      price: 'Free to PLay',
+      about:
+          'The most-played game on Steam.Every day, millions of players worldwide enter battle as one of over a hundred Dota heroes. And no matter if it is their 10th hour of play or 1,000th, there is always something new to discover. With regular updates that ensure a constant evolution of gameplay, features, and heroes, Dota 2 has truly taken on a life of its own.',
+      imageUrls: [
+        'https://cdn.akamai.steamstatic.com/steam/apps/570/header.jpg',
+        'https://cdn.akamai.steamstatic.com/steam/apps/570/ss_7ab506679d42bfc0c0e40639887176494e0466d9.jpg',
+        'https://cdn.akamai.steamstatic.com/steam/apps/570/ss_1f3b5f5ccf8b159294914c3fe028128a787304b6.jpg',
+      ],
+      reviewAverage: '82%',
+      reviewCount: '1820420',
+      linkStore: 'https://store.steampowered.com/app/570/Dota_2/',
+    ),
+    GameStore(
+      name: 'Phasmophobia',
+      releaseDate: '19 Sep, 2020',
+      tags: ['Horror', 'Online Co-Op', 'VR', 'Multiplayer'],
+      price: 'Rp 89.999',
+      about:
+          'Phasmophobia is a 4 player online co-op psychological horror where you and your team members of paranormal investigators will enter haunted locations filled with paranormal activity and gather as much evidence of the paranormal as you can. You will use your ghost hunting equipment to search for and record evidence of whatever ghost is haunting the location to sell onto a ghost removal team.',
+      imageUrls: [
+        'https://cdn.akamai.steamstatic.com/steam/apps/739630/header.jpg',
+        'https://cdn.akamai.steamstatic.com/steam/apps/739630/ss_91bca60a51dce60d680a8fb4efcdecf740b3a3d1.jpg',
+        'https://cdn.akamai.steamstatic.com/steam/apps/739630/ss_13dde9450dd7c7f70b31ccbaa16ac1f5d3822289.jpg',
+      ],
+      reviewAverage: '97%',
+      reviewCount: '388234',
+      linkStore: 'https://store.steampowered.com/app/739630/Phasmophobia/',
+    ),
+    GameStore(
+      name: 'Beat Saber',
+      releaseDate: '22 May, 2019',
+      tags: ['VR', 'Rhythm', 'Music', 'Indie'],
+      price: 'Rp 139.999',
+      about:
+          'Beat Saber is an immersive rhythm experience you have never seen before! Enjoy tons of handcrafted levels and swing your way through the pulsing music beats, surrounded by a futuristic world. Use your sabers to slash the beats as they come flying at you – every beat indicates which saber you need to use and the direction you need to match. With Beat Saber you become a dancing superhero!',
+      imageUrls: [
+        'https://cdn.akamai.steamstatic.com/steam/apps/620980/header.jpg',
+        'https://cdn.akamai.steamstatic.com/steam/apps/620980/ss_1881ae4f153faf0d1ccecca60fbdac5b43ad57eb.jpg',
+        'https://cdn.akamai.steamstatic.com/steam/apps/620980/ss_114dc9a9f27666b2d56801ba49a1db8fa202b6ee.jpg',
+      ],
+      reviewAverage: '96%',
+      reviewCount: '59283',
+      linkStore: 'https://store.steampowered.com/app/620980/Beat_Saber/',
+    ),
   ];
 
   @override
