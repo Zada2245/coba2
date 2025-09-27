@@ -1,6 +1,10 @@
+// lib/HomePage.dart
+
 import 'package:coba2/LoginPage.dart';
 import 'package:coba2/screen/detail_page.dart';
 import 'package:coba2/screen/game_store.dart';
+// 1. Pastikan Anda mengimpor file halaman profil yang baru dibuat
+import 'package:coba2/screen/profil.dart'; // <-- PERUBAHAN DI SINI
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -15,7 +19,7 @@ class HomePage extends StatelessWidget {
       tags: ['Cats', 'Adventure', 'Cyberpunk', 'Atmospheric'],
       price: 'Rp 149.999',
       about:
-          'Stray is a third-person cat adventure game set amidst the detailed, neon-lit alleys of a decaying cybercity and the murky environments of its seedy underbelly. Roam surroundings high and low, defend against unforeseen threats and solve the mysteries of this unwelcome place inhabited by curious droids and dangerous creatures.',
+          'Stray is a third-person cat adventure game set amidst the detailed, neon-lit alleys of a decaying cybercity and the murky environments of its seedy underbelly. Roam surroundings high and low, defend against unforeseen threats and solve the mysteries of this unwelcoming place inhabited by curious droids and dangerous creatures.',
       imageUrls: [
         'https://cdn.akamai.steamstatic.com/steam/apps/1332010/header.jpg',
         'https://cdn.akamai.steamstatic.com/steam/apps/1332010/ss_88e209a90c2039fa76bca6fa08c641365be38d50.jpg',
@@ -62,7 +66,7 @@ class HomePage extends StatelessWidget {
       name: 'Dota 2',
       releaseDate: '10 Jul, 2013',
       tags: ['Free to Play', 'MOBA', 'Strategy', 'Multiplayer'],
-      price: 'Free to PLay',
+      price: 'Free to Play',
       about:
           'The most-played game on Steam.Every day, millions of players worldwide enter battle as one of over a hundred Dota heroes. And no matter if it is their 10th hour of play or 1,000th, there is always something new to discover. With regular updates that ensure a constant evolution of gameplay, features, and heroes, Dota 2 has truly taken on a life of its own.',
       imageUrls: [
@@ -111,22 +115,24 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // 1. Ubah warna latar belakang utama menjadi putih
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
           "Game Store",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        // 2. Ubah warna AppBar dan pastikan ikon & teks terlihat
         backgroundColor: Colors.white,
-        foregroundColor: Colors.black, // Membuat ikon dan teks menjadi hitam
-        elevation: 0.5, // Beri sedikit bayangan agar AppBar terlihat
+        foregroundColor: Colors.black,
+        elevation: 0.5,
         actions: [
           IconButton(
             onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Melihat profil untuk $username')),
+              // 2. Mengganti "Profil()" dengan "ProfilePage()"
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProfileScreen(),
+                ), // <-- PERUBAHAN DI SINI
               );
             },
             icon: Icon(Icons.person_outline),
@@ -149,7 +155,6 @@ class HomePage extends StatelessWidget {
               child: Text(
                 'Selamat Datang, $username!',
                 style: TextStyle(
-                  // 3. Ubah warna teks sambutan menjadi hitam
                   color: Colors.black,
                   fontSize: 26,
                   fontWeight: FontWeight.bold,
@@ -174,15 +179,12 @@ class HomePage extends StatelessWidget {
         style: TextStyle(
           fontSize: 22,
           fontWeight: FontWeight.bold,
-          // 4. Ubah warna header section menjadi hitam
           color: Colors.black,
         ),
       ),
     );
   }
 
-  // Tampilan kartu unggulan tidak perlu diubah karena teks putih
-  // sudah kontras dengan gradien hitam di bawah gambar.
   Widget _buildFeaturedGameList(BuildContext context) {
     return Container(
       height: 220,
@@ -267,7 +269,6 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  // 5. Modifikasi kartu game untuk tema putih
   Widget _buildGameCard(BuildContext context, GameStore game) {
     return GestureDetector(
       onTap: () {
@@ -278,12 +279,10 @@ class HomePage extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          // Ganti warna latar kartu menjadi putih
           color: Colors.white,
           borderRadius: BorderRadius.circular(15.0),
           boxShadow: [
             BoxShadow(
-              // Buat bayangan lebih halus untuk latar putih
               color: Colors.grey.withOpacity(0.3),
               spreadRadius: 1,
               blurRadius: 5,
@@ -325,7 +324,6 @@ class HomePage extends StatelessWidget {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 15,
-                          // Ganti warna teks nama game menjadi hitam
                           color: Colors.black,
                         ),
                         maxLines: 1,
@@ -343,14 +341,12 @@ class HomePage extends StatelessWidget {
                                   vertical: 2.0,
                                 ),
                                 decoration: BoxDecoration(
-                                  // Ganti warna latar tag
                                   color: Colors.grey[200],
                                   borderRadius: BorderRadius.circular(5.0),
                                 ),
                                 child: Text(
                                   tag,
                                   style: TextStyle(
-                                    // Ganti warna teks tag
                                     color: Colors.black87,
                                     fontSize: 10,
                                   ),
@@ -362,7 +358,6 @@ class HomePage extends StatelessWidget {
                       Text(
                         game.price,
                         style: TextStyle(
-                          // Ganti warna harga agar lebih kontras
                           color: Colors.green.shade700,
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
